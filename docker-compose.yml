@@ -10,7 +10,7 @@ services:
       - mongo-data:/data/db
 
   web:
-    image: pearl10102005/cookit:latest
+    build: .
     restart: unless-stopped
     ports:
       - "8001:8001"
@@ -21,6 +21,11 @@ services:
     environment:
       MONGODB_URI: ${MONGODB_URI:-mongodb://mongo:27017}
       MONGODB_DB_NAME: ${MONGODB_DB_NAME:-cookit}
+    volumes:
+      - ./backend:/app/backend
+      - ./javascript:/app/javascript
+      - ./html:/app/html
+      - ./css:/app/css
 
 volumes:
   mongo-data:

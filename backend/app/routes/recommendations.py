@@ -34,17 +34,6 @@ async def recommend(payload: RecommendationRequest, storage=Depends(get_storage)
     return RecommendationResponse(query=payload, results=results)
 
 
-@router.options("/recommendations/gemini")
-async def recommend_gemini_options():
-    return {}
-
-@router.get("/recommendations/gemini")
-async def recommend_gemini_wrong_method():
-    raise HTTPException(
-        status_code=status.HTTP_405_METHOD_NOT_ALLOWED,
-        detail="Use POST /api/recommendations/gemini with JSON payload",
-    )
-
 @router.post("/recommendations/gemini", response_model=RecommendationResponse)
 async def recommend_gemini(payload: RecommendationRequest, storage=Depends(get_storage), current_user=Depends(get_optional_current_user)):
     """Generate recipe suggestions using Gemini Structured Output API."""

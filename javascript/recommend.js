@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const clearIngredientsBtn = document.getElementById('clearIngredientsBtn');
 	const token = window.localStorage.getItem('cookit_access_token');
 	const ingredientChips = document.querySelectorAll('.ingredient-chip[data-ingredients]');
-	const API_BASE_URL = 'http://127.0.0.1:8001';
+	const API_BASE_URL = window.location.origin;
 
 	const parseList = (value) =>
 		value
@@ -138,6 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			try {
 				setMessage('Generating recommendations...', 'success');
 				const endpoint = `${API_BASE_URL}/api/recommendations/gemini`;
+				console.log('Fetching from:', endpoint);
+				console.log('Origin:', window.location.origin);
 				const response = await fetch(endpoint, {
 					method: 'POST',
 					headers: {
