@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FOOD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/food.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script defer src="/javascript/navbar-dropdown.js"></script>
+  <script defer src="/javascript/recipe-links.js"></script>
+</head>
+
+<body id="top" class="food-catalog-page">
+    
+  <!--Phần NAVBAR-->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/html/home.html">
+        <img src="/image/Logo/LogoWebsite.png" alt="Cookit Logo">
+      </a>
+    </div>
+
+    <div class="navbar-center">
+      <ul class="nav-links">
+
+        <!--FOOD-->
+        <li class="has-dropdown">
+          <a href="/html/food.html" style="font-weight: lighter;">FOOD</a>
+        </li>
+
+        <!--RECOMMEND-->
+        <li class="has-dropdown">
+          <a href="/html/recommend.html" style="font-weight: lighter;">RECOMMEND</a>
+        </li>
+
+        <!--HISTORY-->
+        <li class="has-dropdown">
+          <a href="/html/history.html" style="font-weight: lighter;">HISTORY</a>
+        </li>
+
+        <!--CONTACT-->
+        <li class="has-dropdown">
+          <a href="#" style="font-weight: lighter;">CONTACT</a>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="nav-icons">
+      <div class="search">
+        <input type="text" placeholder="Search products...">
+        <i class="fa fa-search"></i>
+      </div>
+      <a href="/html/profile.html" class="fa fa-user" style="color: black;"></a>
+
+
+    </div>
+  </nav>
+
+  <!------------------------------------------------------------------------>
+
+  <!--Phần MAIN-->
+  <main>
+    <section class="food-catalog">
+      <div class="food-shell">
+        <div class="food-hero">
+          <div class="food-hero-copy">
+            <p class="food-eyebrow">Recipe library</p>
+            <h1>FOOD</h1>
+            <p>Quick matches based on your ingredients and time.</p>
+          </div>
+        </div>
+
+        <div class="food-filter-chips" aria-label="Quick filters">
+          <button class="filter-chip active" type="button">All Recipes</button>
+          <button class="filter-chip" type="button">Breakfast</button>
+          <button class="filter-chip" type="button">Lunch</button>
+          <button class="filter-chip" type="button">Dinner</button>
+          <button class="filter-chip" type="button">Desserts</button>
+          <button class="filter-chip" type="button">Quick Meals</button>
+        </div>
+
+        <div class="food-layout">
+          <aside class="food-sidebar" data-filter-panel>
+            <div class="sidebar-header">
+              <div>
+                <p class="sidebar-label">Filters</p>
+                <h2>Refine your taste matches</h2>
+              </div>
+            </div>
+
+            <div class="sidebar-group" data-category-group>
+              <p class="group-title">Category</p>
+              <button class="category-item active" type="button" data-category="all"><i class="fa-solid fa-border-all"></i> All Recipes</button>
+              <button class="category-item" type="button" data-category="breakfast"><i class="fa-solid fa-mug-hot"></i> Breakfast</button>
+              <button class="category-item" type="button" data-category="lunch"><i class="fa-solid fa-bowl-food"></i> Lunch</button>
+              <button class="category-item" type="button" data-category="dinner"><i class="fa-solid fa-utensils"></i> Dinner</button>
+              <button class="category-item" type="button" data-category="dessert"><i class="fa-solid fa-ice-cream"></i> Desserts</button>
+            </div>
+
+            <div class="sidebar-group" data-diet-group>
+              <p class="group-title">Dietary Preferences</p>
+              <label class="checkbox-item"><input type="checkbox" value="vegan"> Vegan Friendly</label>
+              <label class="checkbox-item"><input type="checkbox" value="gluten-free"> Gluten Free</label>
+              <label class="checkbox-item"><input type="checkbox" value="high-protein" checked> High Protein</label>
+              <label class="checkbox-item"><input type="checkbox" value="low-carb"> Low Carb</label>
+            </div>
+
+            <div class="sidebar-group" data-time-group>
+              <p class="group-title">Time</p>
+              <div class="time-pills">
+                <button class="mini-pill active" type="button" data-time="under-30">Under 30 min</button>
+                <button class="mini-pill" type="button" data-time="30-45">30-45 min</button>
+                <button class="mini-pill" type="button" data-time="45-plus">45+ min</button>
+              </div>
+            </div>
+
+            <div class="sidebar-actions">
+              <button class="apply-button" type="button">Apply Filters</button>
+              <button class="reset-button" type="button">Reset</button>
+            </div>
+          </aside>
+
+          <section class="food-results" aria-label="Recommended recipes">
+            <div class="results-header">
+              <div>
+                <p class="results-subtitle">Hand-picked matches</p>
+                <h2>Matching Recipes</h2>
+              </div>
+
+              <div class="results-summary">
+                <span data-result-count>Showing 6 of 6 matches</span>
+              </div>
+            </div>
+
+            <div class="recipe-grid" data-recipe-grid>
+              <article class="food-card" data-recipe-id="bun-bo-hue" data-category="dinner" data-diets="high-protein" data-time="30-45" data-tags="spicy savory">
+                <div class="card-media">
+                  <span class="match-badge">98% match</span>
+                  <button class="card-favorite" type="button" aria-label="Save Bún Bò Huế"><i class="fa-regular fa-heart"></i></button>
+                  <img src="/image/Food/BunBoHue.jpg" alt="Bún Bò Huế">
+                </div>
+                <div class="card-body">
+                  <div class="card-title-row">
+                    <h4>Bún Bò Huế</h4>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 4.8</span>
+                  </div>
+                  <div class="card-meta-row">
+                    <span><i class="fa-regular fa-clock"></i> 40m</span>
+                    <span class="difficulty">Intermediate</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="food-card" data-recipe-id="com-tam-suon" data-category="lunch" data-diets="balanced" data-time="30-45" data-tags="grilled savory">
+                <div class="card-media">
+                  <span class="match-badge">95% match</span>
+                  <button class="card-favorite" type="button" aria-label="Save Cơm Tấm Sườn"><i class="fa-regular fa-heart"></i></button>
+                  <img src="/image/Food/ComTamSuon.png" alt="Cơm Tấm Sườn Nướng">
+                </div>
+                <div class="card-body">
+                  <div class="card-title-row">
+                    <h4>Cơm Tấm Sườn</h4>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 4.7</span>
+                  </div>
+                  <div class="card-meta-row">
+                    <span><i class="fa-regular fa-clock"></i> 35m</span>
+                    <span class="difficulty">Easy</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="food-card" data-recipe-id="banh-xeo" data-category="lunch" data-diets="quick" data-time="under-30" data-tags="crispy savory">
+                <div class="card-media">
+                  <span class="match-badge">92% match</span>
+                  <button class="card-favorite" type="button" aria-label="Save Bánh Xèo"><i class="fa-regular fa-heart"></i></button>
+                  <img src="/image/Food/BanhXeo.jpg" alt="Bánh Xèo">
+                </div>
+                <div class="card-body">
+                  <div class="card-title-row">
+                    <h4>Bánh Xèo</h4>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 4.5</span>
+                  </div>
+                  <div class="card-meta-row">
+                    <span><i class="fa-regular fa-clock"></i> 30m</span>
+                    <span class="difficulty">Easy</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="food-card" data-recipe-id="goi-ga-healthy" data-category="dinner" data-diets="healthy,high-protein" data-time="under-30" data-tags="fresh light">
+                <div class="card-media">
+                  <span class="match-badge">88% match</span>
+                  <button class="card-favorite" type="button" aria-label="Save Gỏi Gà Rau Củ"><i class="fa-regular fa-heart"></i></button>
+                  <img src="/image/Food/VegetableDish.png" alt="Gỏi Gà Rau Củ">
+                </div>
+                <div class="card-body">
+                  <div class="card-title-row">
+                    <h4>Gỏi Gà Rau Củ</h4>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                  </div>
+                  <div class="card-meta-row">
+                    <span><i class="fa-regular fa-clock"></i> 25m</span>
+                    <span class="difficulty">Intermediate</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="food-card" data-recipe-id="com-chien-trung" data-category="breakfast" data-diets="budget,quick" data-time="under-30" data-tags="quick savory">
+                <div class="card-media">
+                  <span class="match-badge">85% match</span>
+                  <button class="card-favorite" type="button" aria-label="Save Cơm Chiên Trứng"><i class="fa-regular fa-heart"></i></button>
+                  <img src="/image/Food/VegetableDish.png" alt="Cơm Chiên Trứng">
+                </div>
+                <div class="card-body">
+                  <div class="card-title-row">
+                    <h4>Cơm Chiên Trứng</h4>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 4.6</span>
+                  </div>
+                  <div class="card-meta-row">
+                    <span><i class="fa-regular fa-clock"></i> 15m</span>
+                    <span class="difficulty">Beginner</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="food-card" data-recipe-id="dau-hu-sot-ca-chua" data-category="dinner" data-diets="vegetarian,healthy,budget" data-time="under-30" data-tags="light savory">
+                <div class="card-media">
+                  <span class="match-badge">82% match</span>
+                  <button class="card-favorite" type="button" aria-label="Save Đậu Hũ Sốt Cà Chua"><i class="fa-regular fa-heart"></i></button>
+                  <img src="/image/Food/VegetableDish.png" alt="Đậu Hũ Sốt Cà Chua">
+                </div>
+                <div class="card-body">
+                  <div class="card-title-row">
+                    <h4>Đậu Hũ Sốt Cà Chua</h4>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 4.4</span>
+                  </div>
+                  <div class="card-meta-row">
+                    <span><i class="fa-regular fa-clock"></i> 20m</span>
+                    <span class="difficulty">Easy</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="results-footer">
+              <button class="load-more-button" type="button" data-load-more>Load More Recommendations</button>
+              <p data-footer-count>Showing 6 of 6 matches</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (unchanged) -->
+  <footer class="vt-footer">
+    <div class="vt-footer-top">
+      <div>
+        <img src="../image/Logo/LogoWebsite.png" alt="Cookit" class="vt-logo">
+        <div class="vt-email"><i class="far fa-envelope"></i> <a href="mailto:support@cookit.com">support@cookit.com</a></div>
+        <div class="vt-social">
+          <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-circle"><i class="fab fa-pinterest"></i></a>
+          <a href="#" class="social-circle"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="vt-footer-columns">
+        <div>
+          <h4>Products</h4>
+          <a href="#">New Arrivals</a>
+          <a href="#">Best Sellers</a>
+          <a href="#">Sale</a>
+        </div>
+        <div>
+          <h4>About</h4>
+          <a href="#">Our Story</a>
+          <a href="#">Careers</a>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <a href="#">FAQs</a>
+          <a href="#">Shipping</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+        </div>
+      </div>
+    </div>
+    <div class="vt-footer-bottom">
+      <p>© 2025 Cookit. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!--JavaScript----------------------------------------------------------------->
+
+  <a id="scroll_top" href="#top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </a>
+
+  <script defer src="/javascript/food-filters.js"></script>
+
+
+
+
+<!-------------------------------------------------------------------------------------->
+
+
+
+
+
+
+</body>
+</html>

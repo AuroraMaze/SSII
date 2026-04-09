@@ -1,0 +1,25 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.env
+.env.*
+
+# Distribution / packaging
+build/
+dist/
+.eggs/
+*.egg-info/
+
+# VS Code files
+.vscode/
+
+# Docker
+*.log
+
+# macOS
+.DS_Store

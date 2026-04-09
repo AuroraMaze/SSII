@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/profile.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script defer src="/javascript/navbar-dropdown.js"></script>
+  <script defer src="/javascript/profile.js"></script>
+</head>
+<body id="top" class="profile-page">
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/html/home.html">
+        <img src="/image/Logo/LogoWebsite.png" alt="Cookit Logo">
+      </a>
+    </div>
+
+    <div class="navbar-center">
+      <ul class="nav-links">
+        <li class="has-dropdown"><a href="/html/food.html" style="font-weight: lighter;">FOOD</a></li>
+        <li class="has-dropdown"><a href="/html/recommend.html" style="font-weight: lighter;">RECOMMEND</a></li>
+        <li class="has-dropdown"><a href="/html/history.html" style="font-weight: lighter;">HISTORY</a></li>
+        <li class="has-dropdown"><a href="/html/profile.html" style="font-weight: lighter;">PROFILE</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-icons">
+      <div class="search">
+        <input type="text" placeholder="Search products...">
+        <i class="fa fa-search"></i>
+      </div>
+      <a href="/html/profile.html" class="fa fa-user" style="color: black;"></a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="profile-shell">
+      <div class="profile-hero">
+        <div class="profile-intro">
+          <p class="profile-eyebrow">Personal dashboard</p>
+          <h1>My Profile</h1>
+          <p>Manage your account, avatar, favorites, and recent recommendation activity in one place.</p>
+        </div>
+        <div class="profile-actions">
+          <a class="soft-button" href="/html/recommend.html"><i class="fa-solid fa-wand-magic-sparkles"></i> New recommendation</a>
+          <button class="soft-button danger" type="button" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        </div>
+      </div>
+
+      <div class="profile-grid">
+        <aside class="profile-card account-card">
+          <div class="avatar-wrap">
+            <img id="profileAvatarPreview" src="/image/Logo/LogoWebsite.png" alt="Profile avatar">
+            <label class="avatar-upload" for="avatarInput"><i class="fa-solid fa-camera"></i></label>
+            <input id="avatarInput" type="file" accept="image/*" hidden>
+          </div>
+          <div class="account-copy">
+            <p class="status-pill" id="accountRole">Customer</p>
+            <h2 id="profileName">Loading...</h2>
+            <p id="profileEmail">Loading email...</p>
+          </div>
+          <div class="account-actions">
+            <button class="ghost-button" type="button" id="resetAvatarBtn">Reset avatar</button>
+            <button class="soft-button danger" type="button" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+          </div>
+        </aside>
+
+        <section class="stats-grid" aria-label="Profile summary">
+          <div class="stat-card">
+            <span>Favorites</span>
+            <strong id="favoritesStat">0</strong>
+            <p>Saved recipes</p>
+          </div>
+          <div class="stat-card">
+            <span>History</span>
+            <strong id="historyStat">0</strong>
+            <p>Recommendation sessions</p>
+          </div>
+          <div class="stat-card">
+            <span>Latest session</span>
+            <strong id="latestStat">0</strong>
+            <p>Recipes in the last result set</p>
+          </div>
+          <div class="stat-card">
+            <span>Avatar</span>
+            <strong id="avatarStat">Yes</strong>
+            <p>Stored locally on this device</p>
+          </div>
+        </section>
+
+        <section class="profile-card list-panel">
+          <div class="panel-header">
+            <div>
+              <p class="section-label">Saved meals</p>
+              <h3>My favorites</h3>
+            </div>
+            <a href="/html/history.html" class="ghost-link">Open history</a>
+          </div>
+          <div id="favoritesList" class="mini-list"></div>
+        </section>
+
+        <section class="profile-card list-panel">
+          <div class="panel-header">
+            <div>
+              <p class="section-label">Recent sessions</p>
+              <h3>Recommendation history</h3>
+            </div>
+          </div>
+          <div id="historyList" class="mini-list"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

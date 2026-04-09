@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script defer src="/javascript/navbar-dropdown.js"></script>
+  <script defer src="/javascript/recipe-links.js"></script>
+</head>
+
+<body id="top">
+    
+  <!--Phần NAVBAR-->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/html/home.html">
+        <img src="/image/Logo/LogoWebsite.png" alt="Cookit Logo">
+      </a>
+    </div>
+
+    <div class="navbar-center">
+      <ul class="nav-links">
+
+        <!--FOOD-->
+        <li class="has-dropdown">
+          <a href="/html/food.html" style="font-weight: lighter;">FOOD</a>
+        </li>
+
+        <!--RECOMMEND-->
+        <li class="has-dropdown">
+          <a href="/html/recommend.html" style="font-weight: lighter;">RECOMMEND</a>
+        </li>
+
+        <!--HISTORY-->
+        <li class="has-dropdown">
+          <a href="/html/history.html" style="font-weight: lighter;">HISTORY</a>
+        </li>
+
+        <!--CONTACT-->
+        <li class="has-dropdown">
+          <a href="#" style="font-weight: lighter;">CONTACT</a>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="nav-icons">
+      <div class="search">
+        <input type="text" placeholder="Search products...">
+        <i class="fa fa-search"></i>
+      </div>
+      <a href="/html/profile.html" class="fa fa-user" style="color: black;"></a>
+
+
+    </div>
+  </nav>
+
+  <!------------------------------------------------------------------------>
+
+  <!--Phần MAIN-->
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <span class="kicker">DASHBOARD HOME</span>
+          <h1>Welcome back, Chef! <span class="accent">Your<br>personalized AI kitchen is ready.</span></h1>
+          <p class="lead">What are we cooking today? Your ingredients are ready for transformation into gourmet masterpieces.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="/html/history.html">Generate Recipe</a>
+            <a class="btn ghost" href="/html/history.html">Browse Library</a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="card-recipe">
+            <img src="/image/Logo/VegetableDish.png" alt="recipe" class="card-img">
+        </div>
+      </div>
+    </section>
+
+    <section class="ai-search">
+      <div class="wrap">
+        <h2>AI Recipe Generator</h2>
+        <p class="sub">Enter the ingredients you have on hand, and our AI will craft a chef-grade recipe just for you.</p>
+        <div class="search-box">
+          <input type="text" placeholder="Chicken, avocado, lime, cilantro...">
+          <button class="btn generate">Generate</button>
+        </div>
+
+        <div class="features">
+          <div class="feature-card">
+            <div class="icon">🥦</div>
+            <h4>Health Focused</h4>
+            <p>AI analyzes macros and calories to match your fitness goals perfectly.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🍽️</div>
+            <h4>Gourmet Quality</h4>
+            <p>Professional techniques and flavor pairings for every suggested dish.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🧺</div>
+            <h4>Smart Pantry</h4>
+            <p>Automatically uses ingredients near their expiration date.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="categories">
+      <div class="wrap">
+        <div class="section-header">
+          <h3>Explore Popular Categories</h3>
+          <a class="view-more-btn" href="/html/food.html">Browse all categories &rarr;</a>
+        </div>
+        <div class="cat-grid">
+          <div class="cat">
+            <img src="/image/Food/QuickBreakfast.png" alt="Quick Breakfast">
+            <div class="cat-content">
+              <h4>Quick Breakfast</h4>
+              <p>Under 15 mins</p>
+            </div>
+          </div>
+
+          <div class="cat">
+            <img src="/image/Food/VeganDelights.png" alt="Vegan Delights">
+            <div class="cat-content">
+              <h4>Vegan Delights</h4>
+              <p>Plant-based</p>
+            </div>
+          </div>
+
+          <div class="cat">
+            <img src="/image/Food/LowCarb.png" alt="Low Carb">
+            <div class="cat-content">
+              <h4>Low Carb</h4>
+              <p>Healthy &amp; Tasty</p>
+            </div>
+          </div>
+
+          <div class="cat">
+            <img src="/image/Food/FamilyDinners.png" alt="Family Dinners">
+            <div class="cat-content">
+              <h4>Family Dinners</h4>
+              <p>Crowd pleasers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trending">
+      <div class="wrap">
+        <div class="section-header">
+          <h3>Trending Recipes</h3>
+        </div>
+        <div class="food-grid">
+          <div class="food-card" data-recipe-id="bun-bo-hue">
+            <img src="/image/Food/BunBoHue.jpg" alt="Bun Bo Hue">
+            <div class="trend-info">
+              <span class="badge small">Spicy</span>
+              <h4>Bún Bò Huế</h4>
+              <div class="meta">45 mins • 480 kcal</div>
+            </div>
+          </div>
+          <div class="food-card" data-recipe-id="com-tam-suon">
+            <img src="/image/Food/ComTamSuon.png" alt="Com Tam Suon">
+            <div class="trend-info">
+              <span class="badge small">Grilled</span>
+              <h4>Cơm Tấm Sườn</h4>
+              <div class="meta">35 mins • 520 kcal</div>
+            </div>
+          </div>
+          <div class="food-card" data-recipe-id="banh-xeo">
+            <img src="/image/Food/BanhXeo.jpg" alt="Banh Xeo">
+            <div class="trend-info">
+              <span class="badge small">Crispy</span>
+              <h4>Bánh Xèo</h4>
+              <div class="meta">30 mins • 340 kcal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (unchanged) -->
+  <footer class="vt-footer">
+    <div class="vt-footer-top">
+      <div>
+        <img src="../image/Logo/LogoWebsite.png" alt="Cookit" class="vt-logo">
+        <div class="vt-email"><i class="far fa-envelope"></i> <a href="mailto:support@cookit.com">support@cookit.com</a></div>
+        <div class="vt-social">
+          <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-circle"><i class="fab fa-pinterest"></i></a>
+          <a href="#" class="social-circle"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="vt-footer-columns">
+        <div>
+          <h4>Products</h4>
+          <a href="#">New Arrivals</a>
+          <a href="#">Best Sellers</a>
+          <a href="#">Sale</a>
+        </div>
+        <div>
+          <h4>About</h4>
+          <a href="#">Our Story</a>
+          <a href="#">Careers</a>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <a href="#">FAQs</a>
+          <a href="#">Shipping</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+        </div>
+      </div>
+    </div>
+    <div class="vt-footer-bottom">
+      <p>© 2025 Cookit. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!--JavaScript----------------------------------------------------------------->
+
+  <a id="scroll_top" href="#top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </a>
+
+<!-------------------------------------------------------------------------------------->
+
+
+
+
+
+
+</body>
+</html>

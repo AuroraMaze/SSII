@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RECOMMEND</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/recommend.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script defer src="/javascript/navbar-dropdown.js"></script>
+  <script defer src="/javascript/recipe-links.js"></script>
+  <script defer src="/javascript/recommend.js"></script>
+</head>
+
+<body id="top">
+    
+  <!--Phần NAVBAR-->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/html/home.html">
+        <img src="/image/Logo/LogoWebsite.png" alt="Cookit Logo">
+      </a>
+    </div>
+
+    <div class="navbar-center">
+      <ul class="nav-links">
+
+        <!--FOOD-->
+        <li class="has-dropdown">
+          <a href="/html/food.html" style="font-weight: lighter;">FOOD</a>
+        </li>
+
+        <!--RECOMMEND-->
+        <li class="has-dropdown">
+          <a href="/html/recommend.html" style="font-weight: lighter;">RECOMMEND</a>
+        </li>
+
+        <!--HISTORY-->
+        <li class="has-dropdown">
+          <a href="/html/history.html" style="font-weight: lighter;">HISTORY</a>
+        </li>
+
+        <!--CONTACT-->
+        <li class="has-dropdown">
+          <a href="#" style="font-weight: lighter;">CONTACT</a>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="nav-icons">
+      <div class="search">
+        <input type="text" placeholder="Search products...">
+        <i class="fa fa-search"></i>
+      </div>
+      <a href="/html/profile.html" class="fa fa-user" style="color: black;"></a>
+
+
+    </div>
+  </nav>
+
+  <!------------------------------------------------------------------------>
+
+  <!--Phần MAIN-->
+  <main>
+    <section class="recommend-hero">
+      <div class="recommend-hero-copy">
+        <span class="kicker">AI RECOMMENDER</span>
+        <h1>Find a meal from the ingredients you already have.</h1>
+        <p>Tell us what is in your kitchen, then let the system filter recipes, estimate nutrition, and suggest the best match for your time and taste.</p>
+        <div class="hero-steps">
+          <div class="step-card">
+            <span>1</span>
+            <p>Add ingredients you have right now.</p>
+          </div>
+          <div class="step-card">
+            <span>2</span>
+            <p>Pick taste, cooking time, and diet goal.</p>
+          </div>
+          <div class="step-card">
+            <span>3</span>
+            <p>Generate results and save your favorite dish.</p>
+          </div>
+        </div>
+      </div>
+      <div class="recommend-hero-card">
+        <h3>What this page does</h3>
+        <ul>
+          <li>Matches ingredients with recipes</li>
+          <li>Filters by taste, time, and diet goal</li>
+          <li>Lets signed-in users save favorites</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="recommend-workspace">
+      <div class="recommend-panel">
+        <h2>Build your meal request</h2>
+        <p class="panel-note">Use the quick chips below or type your own ingredients separated by commas.</p>
+        <div class="quick-ingredients">
+          <button type="button" class="ingredient-chip" data-ingredients="chicken, rice, egg">Chicken, rice, egg</button>
+          <button type="button" class="ingredient-chip" data-ingredients="tofu, tomato, garlic">Tofu, tomato, garlic</button>
+          <button type="button" class="ingredient-chip" data-ingredients="pork, cucumber, fish sauce">Pork, cucumber, fish sauce</button>
+          <button type="button" class="ingredient-chip ghost" id="clearIngredientsBtn">Clear</button>
+        </div>
+        <form id="recommendForm" class="recommend-form">
+          <label for="ingredientsInput">Available ingredients</label>
+          <textarea id="ingredientsInput" rows="5" placeholder="Example: chicken, egg, rice, tomato, onion"></textarea>
+
+          <div class="filter-grid">
+            <div>
+              <label for="tasteInput">Taste preferences</label>
+              <input id="tasteInput" type="text" placeholder="Example: spicy, savory, light">
+            </div>
+            <div>
+              <label for="maxTimeInput">Max cooking time (minutes)</label>
+              <input id="maxTimeInput" type="number" min="1" max="240" placeholder="30">
+            </div>
+            <div>
+              <label for="dietGoalInput">Diet goal</label>
+              <select id="dietGoalInput">
+                <option value="">Any</option>
+                <option value="healthy">Healthy</option>
+                <option value="balanced">Balanced</option>
+                <option value="budget">Budget</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="high-protein">High-protein</option>
+              </select>
+            </div>
+            <div>
+              <label for="nutritionGoalInput">Nutrition focus</label>
+              <select id="nutritionGoalInput">
+                <option value="">Any</option>
+                <option value="healthy">Healthy</option>
+                <option value="high-protein">High-protein</option>
+                <option value="balanced">Balanced</option>
+                <option value="weight_loss">Weight-loss friendly</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-footer">
+            <button type="submit" class="generate-btn">Generate recommendations</button>
+            <p id="recommendMessage" class="form-message"></p>
+          </div>
+        </form>
+      </div>
+
+      <div class="results-panel">
+        <div class="results-header">
+          <div>
+            <h2>Recommended recipes</h2>
+            <p id="resultCount">No results yet</p>
+          </div>
+          <a class="secondary-link" href="/html/history.html">View favorites</a>
+        </div>
+        <div id="recommendResults" class="recommend-results">
+          <div class="empty-state">Enter your ingredients and generate suggestions.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (unchanged) -->
+  <footer class="vt-footer">
+    <div class="vt-footer-top">
+      <div>
+        <img src="../image/Logo/LogoWebsite.png" alt="Cookit" class="vt-logo">
+        <div class="vt-email"><i class="far fa-envelope"></i> <a href="mailto:support@cookit.com">support@cookit.com</a></div>
+        <div class="vt-social">
+          <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-circle"><i class="fab fa-pinterest"></i></a>
+          <a href="#" class="social-circle"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="vt-footer-columns">
+        <div>
+          <h4>Products</h4>
+          <a href="#">New Arrivals</a>
+          <a href="#">Best Sellers</a>
+          <a href="#">Sale</a>
+        </div>
+        <div>
+          <h4>About</h4>
+          <a href="#">Our Story</a>
+          <a href="#">Careers</a>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <a href="#">FAQs</a>
+          <a href="#">Shipping</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+        </div>
+      </div>
+    </div>
+    <div class="vt-footer-bottom">
+      <p>© 2025 Cookit. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!--JavaScript----------------------------------------------------------------->
+
+  <a id="scroll_top" href="#top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </a>
+
+
+
+
+
+<!-------------------------------------------------------------------------------------->
+
+
+
+
+
+
+</body>
+</html>
