@@ -37,7 +37,7 @@ html, body {
     font-size: 14px;
   }
   .logo img {
-    height: 75px;
+    height: 88px;
     width: auto;
   }
   
@@ -716,7 +716,7 @@ html{
 }
 
 .vt-logo {
-  height: 64px;
+  height: 72px;
   width: auto;
   margin-bottom: 24px;
 }
@@ -825,6 +825,17 @@ html{
 .card-footer .tag { font-size: 12px; color: #27ae60; font-weight: 700; margin-bottom: 6px; }
 .card-footer h3 { margin: 0 0 6px; font-size: 18px; }
 .card-footer .meta { color: #8a98a8; font-size: 13px; }
+.featured-detail-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  color: #28c76f;
+  text-decoration: none;
+  font-weight: 700;
+}
+.featured-detail-link:hover {
+  text-decoration: underline;
+}
 
 .ai-search { background: #f3faf6; padding: 48px 0; }
 .ai-search .wrap { max-width: 1000px; margin: 0 auto; padding: 0 40px; text-align: center; }

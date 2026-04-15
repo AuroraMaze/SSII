@@ -26,6 +26,7 @@ services:
       - ./javascript:/app/javascript
       - ./html:/app/html
       - ./css:/app/css
+      - ./image:/app/image
 
 volumes:
   mongo-data:

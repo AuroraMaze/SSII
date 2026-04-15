@@ -41,8 +41,13 @@ app.mount("/html", StaticFiles(directory=BASE_DIR / "html"), name="html")
 async def startup() -> None:
     mongo_db = None
     if settings.mongodb_uri:
-        client = AsyncIOMotorClient(settings.mongodb_uri)
-        mongo_db = client[settings.mongodb_db_name]
+        try:
+            client = AsyncIOMotorClient(settings.mongodb_uri, serverSelectionTimeoutMS=5000)
+            mongo_db = client[settings.mongodb_db_name]
+            await mongo_db.command("ping")
+        except Exception as exc:
+            print(f"Warning: MongoDB unavailable ({exc}). Falling back to in-memory storage.")
+            mongo_db = None
 
     app.state.storage = await AppStorage.create(mongo_db)
 

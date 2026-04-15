@@ -101,9 +101,22 @@ document.addEventListener('DOMContentLoaded', () => {
 				const rightDate = new Date(right.created_at || 0).getTime();
 				return rightDate - leftDate;
 			});
-			const recipesResponse = await fetch('/api/recipes');
-			const recipes = await recipesResponse.json().catch(() => []);
-			const recipeMap = new Map(recipes.map((recipe) => [recipe.id, recipe]));
+			const topRecipeIds = [...new Set(history.map((entry) => entry.result_ids?.[0]).filter(Boolean))];
+			const recipeEntries = await Promise.all(
+				topRecipeIds.map(async (recipeId) => {
+					try {
+						const response = await fetch(`/api/recipes/${encodeURIComponent(recipeId)}`);
+						if (!response.ok) {
+							return [recipeId, null];
+						}
+						const recipe = await response.json().catch(() => null);
+						return [recipeId, recipe];
+					} catch (error) {
+						return [recipeId, null];
+					}
+				}),
+			);
+			const recipeMap = new Map(recipeEntries);
 
 			if (favoritesGrid) {
 				favoritesGrid.innerHTML = favorites.length

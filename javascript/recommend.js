@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const maxTimeInput = document.getElementById('maxTimeInput');
 	const dietGoalInput = document.getElementById('dietGoalInput');
 	const nutritionGoalInput = document.getElementById('nutritionGoalInput');
+	const maxResultsInput = document.getElementById('maxResultsInput');
 	const message = document.getElementById('recommendMessage');
 	const results = document.getElementById('recommendResults');
 	const resultCount = document.getElementById('resultCount');
@@ -48,7 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		results.innerHTML = items
 			.map(
-				(item) => `
+				(item) => {
+					const detailUrl = `/html/recipe-detail.html?recipe_id=${encodeURIComponent(item.id)}`;
+					return `
 					<article class="result-card" data-recipe-id="${item.id}">
 						<div class="result-image">
 							<img src="${item.image || '/image/Logo/VegetableDish.png'}" alt="${item.name}">
@@ -56,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						<div class="result-body">
 							<div class="result-top">
 								<span class="score">${item.match_score} match</span>
-								<a class="details-btn" href="/html/recipe-detail.html?recipe_id=${item.id}">View details</a>
+								<a class="details-btn" href="${detailUrl}">View details</a>
 								<button type="button" class="save-btn" data-recipe-id="${item.id}">Save favorite</button>
 							</div>
 							<h3>${item.name}</h3>
@@ -75,11 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
 								<span>${item.taste_tags?.join(', ') || 'No taste tags'}</span>
 							</div>
 							<div class="detail-footer-row">
-								<a class="inline-link" href="/html/recipe-detail.html?recipe_id=${item.id}">Open recipe detail</a>
+								<a class="inline-link" href="${detailUrl}">Open recipe detail</a>
 							</div>
 						</div>
 					</article>
-				`,
+				`;
+				},
 			)
 			.join('');
 
@@ -130,16 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				const maxTimeValue = maxTimeInput.value ? Number(maxTimeInput.value) : null;
 				const dietGoal = dietGoalInput.value || null;
 				const nutritionGoal = nutritionGoalInput.value || null;
-			if (!ingredients.length) {
-				setMessage('Please add at least one ingredient.');
-				return;
-			}
-
+			const maxResults = maxResultsInput.value ? Number(maxResultsInput.value) : 10;
 			try {
 				setMessage('Generating recommendations...', 'success');
-				const endpoint = `${API_BASE_URL}/api/recommendations/gemini`;
-				console.log('Fetching from:', endpoint);
-				console.log('Origin:', window.location.origin);
+				const endpoint = `${API_BASE_URL}/api/recommendations`;
 				const response = await fetch(endpoint, {
 					method: 'POST',
 					headers: {
@@ -152,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						max_time_minutes: maxTimeValue,
 						diet_goal: dietGoal,
 						nutrition_goal: nutritionGoal,
+						max_results: maxResults,
 					}),
 				});
 

@@ -6,8 +6,6 @@ from uuid import uuid4
 
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
-from .sample_data import SAMPLE_RECIPES
-
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
@@ -36,12 +34,8 @@ class AppStorage:
             await self.db.users.create_index("email", unique=True)
             await self.db.recipes.create_index("id", unique=True)
             await self.db.favorites.create_index([("user_id", 1), ("recipe_id", 1)], unique=True)
-            count = await self.db.recipes.count_documents({})
-            if count == 0:
-                await self.db.recipes.insert_many(SAMPLE_RECIPES)
         else:
-            for recipe in SAMPLE_RECIPES:
-                self.recipes[recipe["id"]] = recipe.copy()
+            self.recipes = {}
 
     async def list_recipes(self) -> list[dict[str, Any]]:
         if self.backend == "mongo" and self.db is not None:

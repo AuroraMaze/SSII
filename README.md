@@ -13,6 +13,7 @@ This project is a customer-focused web app for suggesting meals based on availab
 ## Run with Docker
 
 1. Copy `.env.example` to `.env` and update values as needed.
+   Set `EDAMAM_APP_ID` and `EDAMAM_APP_KEY` in `.env` before starting the app.
 2. Build and start the services:
 
 ```powershell
@@ -40,4 +41,5 @@ docker compose up --build
 ## Notes
 
 - If `MONGODB_URI` is not set, the app runs in memory mode so you can still test the full flow.
+- Recipe search and recipe details are powered by Edamam. Their web recipe API provides nutrition and source links, while full cooking instructions remain on the original publisher page.
 - Password hashing uses `pbkdf2_sha256` to avoid the bcrypt backend issue in this environment.

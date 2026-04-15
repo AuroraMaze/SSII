@@ -33,6 +33,7 @@ class RecommendationRequest(BaseModel):
     max_time_minutes: int | None = Field(default=None, ge=1, le=240)
     diet_goal: str | None = None
     nutrition_goal: str | None = None
+    max_results: int = Field(default=6, ge=1, le=30)
 
 
 class FavoriteCreate(BaseModel):

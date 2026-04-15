@@ -1,0 +1,287 @@
+html.dark-mode {
+  color-scheme: dark;
+}
+
+html.dark-mode body {
+  background: #0c1117 !important;
+  color: #e6edf3 !important;
+}
+
+html.dark-mode .navbar,
+html.dark-mode .topbar,
+html.dark-mode .vt-footer,
+html.dark-mode .profile-card,
+html.dark-mode .recommend-hero-copy,
+html.dark-mode .recommend-hero-card,
+html.dark-mode .recommend-panel,
+html.dark-mode .result-card,
+html.dark-mode .food-sidebar,
+html.dark-mode .food-card,
+html.dark-mode .detail-card,
+html.dark-mode .side-card,
+html.dark-mode .detail-loading,
+html.dark-mode .detail-error,
+html.dark-mode .summary-card,
+html.dark-mode .recipe-card,
+html.dark-mode .recipe-cta,
+html.dark-mode .info-hero,
+html.dark-mode .info-card,
+html.dark-mode .container,
+html.dark-mode form,
+html.dark-mode .step-card,
+html.dark-mode .mini-item,
+html.dark-mode .stat-card,
+html.dark-mode .empty-state,
+html.dark-mode .match-group,
+html.dark-mode .match-group.missing,
+html.dark-mode .nutrition-item,
+html.dark-mode .stack-item,
+html.dark-mode .meta-pill,
+html.dark-mode .chip,
+html.dark-mode .kicker,
+html.dark-mode .search-box,
+html.dark-mode .feature-card,
+html.dark-mode .card-recipe,
+html.dark-mode .card-footer {
+  background: #111827 !important;
+  color: #e6edf3 !important;
+  border-color: #253041 !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark-mode .vt-footer-bottom,
+html.dark-mode .footer {
+  background: #020617 !important;
+  color: #cbd5e1 !important;
+}
+
+html.dark-mode .hero,
+html.dark-mode .ai-search,
+html.dark-mode .recipe-section,
+html.dark-mode .contents,
+html.dark-mode .daily-product-section,
+html.dark-mode .gender-section,
+html.dark-mode .food-catalog-page,
+html.dark-mode .profile-page,
+html.dark-mode .info-page {
+  background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%) !important;
+}
+
+html.dark-mode .food-catalog-page {
+  background:
+    radial-gradient(circle at top left, rgba(76, 204, 90, 0.14), transparent 24%),
+    linear-gradient(180deg, #0b1220 0%, #0f172a 100%) !important;
+}
+
+html.dark-mode .hero h1,
+html.dark-mode .recommend-hero-copy h1,
+html.dark-mode .food-hero-copy h1,
+html.dark-mode .profile-intro h1,
+html.dark-mode .recipe-header h1,
+html.dark-mode .detail-hero h1,
+html.dark-mode .results-header h2,
+html.dark-mode .recommend-panel h2,
+html.dark-mode .recommend-hero-card h3,
+html.dark-mode .sidebar-header h2,
+html.dark-mode .panel-header h3,
+html.dark-mode .panel-block h2,
+html.dark-mode .panel-block h3,
+html.dark-mode .account-copy h2,
+html.dark-mode .card-title-row h4,
+html.dark-mode .result-body h3,
+html.dark-mode .trend-info h4,
+html.dark-mode .info-hero h1,
+html.dark-mode .info-card h2,
+html.dark-mode .info-card h3,
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode strong {
+  color: #f8fafc !important;
+}
+
+html.dark-mode p,
+html.dark-mode span,
+html.dark-mode label,
+html.dark-mode li,
+html.dark-mode .lead,
+html.dark-mode .panel-note,
+html.dark-mode .description,
+html.dark-mode .reason,
+html.dark-mode .detail-description,
+html.dark-mode .detail-footer-note,
+html.dark-mode .recipe-meta,
+html.dark-mode .meta-row,
+html.dark-mode .results-summary,
+html.dark-mode .resultCount,
+html.dark-mode .summary-card span,
+html.dark-mode .step-card p,
+html.dark-mode .mini-item p,
+html.dark-mode .stat-card p,
+html.dark-mode .info-lead,
+html.dark-mode .info-card p,
+html.dark-mode .info-card li,
+html.dark-mode .form-message,
+html.dark-mode .empty-note,
+html.dark-mode .group-title,
+html.dark-mode .food-eyebrow,
+html.dark-mode .sidebar-label,
+html.dark-mode .results-subtitle,
+html.dark-mode .profile-eyebrow,
+html.dark-mode .section-label {
+  color: #aab8c8 !important;
+}
+
+html.dark-mode a,
+html.dark-mode .nav-links li a,
+html.dark-mode .vt-email a,
+html.dark-mode .vt-footer-columns a,
+html.dark-mode .recipe-action-link,
+html.dark-mode .ghost-link,
+html.dark-mode .secondary-link,
+html.dark-mode .inline-link,
+html.dark-mode .details-btn,
+html.dark-mode .social-circle,
+html.dark-mode .view-more-btn,
+html.dark-mode .fa-user {
+  color: #dbe7f3 !important;
+}
+
+html.dark-mode .nav-links li a:hover,
+html.dark-mode .vt-footer-columns a:hover,
+html.dark-mode .recipe-action-link:hover,
+html.dark-mode .secondary-link:hover,
+html.dark-mode .inline-link:hover,
+html.dark-mode .view-more-btn:hover {
+  color: #8be28b !important;
+}
+
+html.dark-mode .search input,
+html.dark-mode .search-box input,
+html.dark-mode .recommend-form textarea,
+html.dark-mode .recommend-form input,
+html.dark-mode .recommend-form select,
+html.dark-mode input,
+html.dark-mode textarea,
+html.dark-mode select {
+  background: #0f172a !important;
+  color: #e6edf3 !important;
+  border-color: #334155 !important;
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder {
+  color: #7c8aa0 !important;
+}
+
+html.dark-mode .btn.ghost,
+html.dark-mode .ingredient-chip,
+html.dark-mode .ingredient-chip.ghost,
+html.dark-mode .filter-chip,
+html.dark-mode .category-item,
+html.dark-mode .mini-pill,
+html.dark-mode .reset-button,
+html.dark-mode .ghost-btn,
+html.dark-mode .soft-button,
+html.dark-mode .ghost-button,
+html.dark-mode .ghost-link,
+html.dark-mode .details-btn,
+html.dark-mode .save-btn,
+html.dark-mode .recipe-actions .remove-btn,
+html.dark-mode .info-button.ghost {
+  background: #162132 !important;
+  color: #dbe7f3 !important;
+  border-color: #334155 !important;
+}
+
+html.dark-mode .btn.primary,
+html.dark-mode .generate-btn,
+html.dark-mode .apply-button,
+html.dark-mode .load-more-button,
+html.dark-mode .primary-btn,
+html.dark-mode .btn-create,
+html.dark-mode button,
+html.dark-mode .info-button,
+html.dark-mode .avatar-upload {
+  background: linear-gradient(135deg, #2ea043 0%, #238636 100%) !important;
+  color: #f8fafc !important;
+  border-color: #2ea043 !important;
+}
+
+html.dark-mode .status-pill,
+html.dark-mode .score,
+html.dark-mode .detail-kicker,
+html.dark-mode .badge.small,
+html.dark-mode .match-badge {
+  background: rgba(46, 160, 67, 0.18) !important;
+  color: #8be28b !important;
+  border-color: rgba(46, 160, 67, 0.32) !important;
+}
+
+html.dark-mode .card-image,
+html.dark-mode .result-image,
+html.dark-mode .detail-media,
+html.dark-mode .card-media img,
+html.dark-mode .avatar-wrap img {
+  background: #0f172a !important;
+}
+
+html.dark-mode .social-circle {
+  background: #162132 !important;
+  box-shadow: inset 0 0 0 1px #334155 !important;
+}
+
+html.dark-mode .recipe-tabs .tab {
+  color: #aab8c8 !important;
+}
+
+html.dark-mode .recipe-tabs .tab.active,
+html.dark-mode .recipe-tabs .tab:hover {
+  color: #f8fafc !important;
+  border-bottom-color: #8be28b !important;
+}
+
+html.dark-mode .logo img,
+html.dark-mode .vt-logo {
+  filter: brightness(0) invert(1) contrast(1.05);
+}
+
+html.dark-mode #scroll_top {
+  background: #162132 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 0 0 1px #334155, 0 16px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+.theme-toggle {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1200;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.16);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  font-size: 1.05rem;
+}
+
+html.dark-mode .theme-toggle {
+  background: rgba(15, 23, 42, 0.92);
+  color: #f8fafc;
+  border-color: #334155;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 720px) {
+  .theme-toggle {
+    right: 16px;
+    bottom: 16px;
+    width: 48px;
+    height: 48px;
+  }
+}

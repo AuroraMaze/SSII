@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('[data-recipe-grid]');
-  let cards = Array.from(document.querySelectorAll('.food-card[data-recipe-id]'));
+  let cards = [];
   const filterChips = Array.from(document.querySelectorAll('.filter-chip'));
   const categoryButtons = Array.from(document.querySelectorAll('[data-category-group] .category-item'));
   const dietCheckboxes = Array.from(document.querySelectorAll('[data-diet-group] input[type="checkbox"]'));
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultCount = document.querySelector('[data-result-count]');
   const footerCount = document.querySelector('[data-footer-count]');
 
-  if (!grid || !cards.length) {
+  if (!grid) {
     return;
   }
 
@@ -20,6 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     diets: new Set(),
     time: '',
     extraVisible: false,
+  };
+
+  const showEmptyState = (message) => {
+    grid.innerHTML = '';
+    const emptyState = document.createElement('div');
+    emptyState.className = 'empty-state';
+    emptyState.textContent = message;
+    grid.appendChild(emptyState);
   };
 
   const normalizeList = (value) => String(value || '')
@@ -31,6 +39,107 @@ document.addEventListener('DOMContentLoaded', () => {
     buttons.forEach((button) => {
       button.classList.toggle('active', button === activeButton);
     });
+  };
+
+  const formatRecipeTime = (minutes) => {
+    if (!minutes || Number.isNaN(Number(minutes))) {
+      return '45-plus';
+    }
+    const value = Number(minutes);
+    if (value <= 30) return 'under-30';
+    if (value <= 45) return '30-45';
+    return '45-plus';
+  };
+
+  const renderRecipeCard = (recipe) => {
+    const detailUrl = `/html/recipe-detail.html?recipe_id=${encodeURIComponent(recipe.id)}`;
+    const timeLabel = formatRecipeTime(recipe.time_minutes);
+    const diets = recipe.diet_tags?.join(',') || '';
+    const tags = recipe.taste_tags?.join(',') || '';
+    const category = (recipe.category || 'all').toLowerCase();
+    const minutes = recipe.time_minutes || 0;
+    const nutrition = recipe.nutrition || {};
+    const calories = nutrition.calories || 0;
+    const protein = nutrition.protein || 0;
+    const carbs = nutrition.carbs || 0;
+    const fat = nutrition.fat || 0;
+
+    return `
+      <article class="food-card" data-recipe-id="${recipe.id}" data-category="${category}" data-diets="${diets}" data-time="${timeLabel}" data-tags="${tags}">
+        <div class="card-media">
+          <span class="match-badge">Recipe</span>
+          <button class="card-favorite" type="button" aria-label="Save ${recipe.name}"><i class="fa-regular fa-heart"></i></button>
+          <img src="${recipe.image || '/image/Logo/VegetableDish.png'}" alt="${recipe.name}">
+        </div>
+        <div class="card-body">
+          <div class="card-title-row">
+            <h4>${recipe.name}</h4>
+            <span class="card-rating"><i class="fa-solid fa-star"></i> 4.6</span>
+          </div>
+          <div class="card-meta-row">
+            <span><i class="fa-regular fa-clock"></i> ${minutes}m</span>
+            <span class="difficulty">${category || 'Recipe'}</span>
+          </div>
+          <div class="card-nutrition">
+            <div class="nutrition-item">
+              <span class="nutrition-value">${calories}</span>
+              <span class="nutrition-label">cal</span>
+            </div>
+            <div class="nutrition-item">
+              <span class="nutrition-value">${protein}g</span>
+              <span class="nutrition-label">protein</span>
+            </div>
+            <div class="nutrition-item">
+              <span class="nutrition-value">${carbs}g</span>
+              <span class="nutrition-label">carbs</span>
+            </div>
+            <div class="nutrition-item">
+              <span class="nutrition-value">${fat}g</span>
+              <span class="nutrition-label">fat</span>
+            </div>
+          </div>
+          <div class="detail-footer-row">
+            <a class="inline-link" href="${detailUrl}">View details</a>
+          </div>
+        </div>
+      </article>
+    `;
+  };
+
+  const loadRecipes = async () => {
+    try {
+      const response = await fetch('/api/recipes');
+      if (!response.ok) {
+        let message = 'Unable to load recipes right now.';
+        try {
+          const errorPayload = await response.json();
+          if (errorPayload?.detail) {
+            message = errorPayload.detail;
+          }
+        } catch (parseError) {
+          const errorText = await response.text().catch(() => '');
+          if (errorText) {
+            message = errorText;
+          }
+        }
+        throw new Error(message);
+      }
+      const recipes = await response.json();
+      if (!Array.isArray(recipes) || recipes.length === 0) {
+        showEmptyState('No recipes are available from Edamam right now. Check the API credentials or upstream response.');
+        cards = [];
+        updateResultText(0);
+        return;
+      }
+      grid.innerHTML = recipes.map(renderRecipeCard).join('');
+      cards = Array.from(grid.querySelectorAll('.food-card[data-recipe-id]'));
+      updateResultText(cards.length);
+    } catch (error) {
+      console.error('Recipe loading failed:', error);
+      showEmptyState(error.message || 'Unable to load recipes right now.');
+      cards = [];
+      updateResultText(0);
+    }
   };
 
   const updateResultText = (visibleCount) => {
@@ -171,26 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const extraTemplateIds = ['bun-bo-hue', 'com-tam-suon', 'banh-xeo'];
-  extraTemplateIds.forEach((recipeId) => {
-    const sourceCard = cards.find((card) => card.dataset.recipeId === recipeId);
-    if (!sourceCard || !grid) {
-      return;
-    }
-
-    const clonedCard = sourceCard.cloneNode(true);
-    clonedCard.dataset.extraCard = 'true';
-    clonedCard.classList.add('is-hidden', 'is-extra-card');
-
-    const matchBadge = clonedCard.querySelector('.match-badge');
-    if (matchBadge) {
-      matchBadge.textContent = 'More matches';
-    }
-
-    grid.appendChild(clonedCard);
-    cards = Array.from(document.querySelectorAll('.food-card[data-recipe-id]'));
-  });
-
   grid.addEventListener('click', (event) => {
     const button = event.target.closest('.card-favorite');
     if (!button) {
@@ -205,5 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  applyFilters();
+  loadRecipes().then(() => {
+    applyFilters();
+  });
 });

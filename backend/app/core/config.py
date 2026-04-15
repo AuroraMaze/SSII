@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 class Settings:
@@ -14,6 +18,12 @@ class Settings:
     # Gemini API configuration
     gemini_api_key: str | None = os.getenv("GEMINI_API_KEY")
     gemini_model: str = os.getenv("GEMINI_MODEL", "gemini-1.5-pro")
+
+    # Edamam recipe API configuration
+    edamam_app_id: str | None = os.getenv("EDAMAM_APP_ID")
+    edamam_app_key: str | None = os.getenv("EDAMAM_APP_KEY")
+    edamam_base_url: str = os.getenv("EDAMAM_BASE_URL", "https://api.edamam.com")
+    edamam_account_user: str = os.getenv("EDAMAM_ACCOUNT_USER", "cookit-web")
 
 
 settings = Settings()

@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					</div>
 					<div class="detail-actions">
 						<button class="primary-btn" id="saveFavoriteBtn" type="button">Save favorite</button>
+						${recipe.source_url ? `<a class="ghost-btn" href="${recipe.source_url}" target="_blank" rel="noopener noreferrer">Open source recipe</a>` : ''}
 						<a class="ghost-btn" href="/html/recommend.html">Generate similar</a>
 						<a class="ghost-btn" href="/html/history.html">Back to history</a>
 					</div>
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				</section>
 
 				<section class="panel-block">
-					<h3>Cooking steps</h3>
+					<h3>Instructions</h3>
 					<div class="list-stack">
 						${recipe.steps.map((step, index) => `<div class="stack-item"><span class="stack-index">${index + 1}</span><div class="stack-text">${step}</div></div>`).join('')}
 					</div>
@@ -62,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 				<section class="panel-block">
 					<h3>Why this recipe?</h3>
-					<p class="detail-footer-note">This recipe is available in the current dataset and can be matched, saved, and revisited from the customer flow. Use it as a clean template for your final project demo.</p>
+					<p class="detail-footer-note">This recipe comes from the live Edamam catalog. Nutrition is estimated by Edamam, while full instructions stay on the original publisher page.</p>
 				</section>
 			</aside>
 		`;

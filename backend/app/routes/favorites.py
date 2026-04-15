@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from ..dependencies import get_current_user, get_storage
 from ..schemas import FavoriteCreate
+from ..services.edamam import EdamamServiceError, get_recipe_by_id
 
 
 router = APIRouter(prefix="/api/favorites", tags=["favorites"])
@@ -16,7 +17,10 @@ async def list_favorites(current_user=Depends(get_current_user), storage=Depends
 
 @router.post("")
 async def add_favorite(payload: FavoriteCreate, current_user=Depends(get_current_user), storage=Depends(get_storage)):
-    recipe = await storage.get_recipe_by_id(payload.recipe_id)
+    try:
+        recipe = await get_recipe_by_id(payload.recipe_id)
+    except EdamamServiceError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
     if not recipe:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Recipe not found")
 

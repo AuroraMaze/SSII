@@ -4,19 +4,45 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Sign In / Sign Up</title>
+	<script>try{var t=localStorage.getItem('cookit-theme');if((!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)||t==='dark'){document.documentElement.classList.add('dark-mode');}}catch(e){}</script>
 	<link rel="stylesheet" href="/css/Login.css" />
+	<link rel="stylesheet" href="/css/darkmode.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+	<script defer src="/javascript/darkmode.js"></script>
 </head>
 <body>
+<nav class="navbar">
+  <div class="logo">
+    <a href="/html/home.html">
+      <img src="/image/Logo/LogoWebsite.png" alt="Cookit Logo">
+    </a>
+  </div>
+  <div class="navbar-center">
+    <ul class="nav-links">
+      <li class="has-dropdown"><a href="/html/food.html">FOOD</a></li>
+      <li class="has-dropdown"><a href="/html/recommend.html">RECOMMEND</a></li>
+      <li class="has-dropdown"><a href="/html/history.html">HISTORY</a></li>
+      <li class="has-dropdown"><a href="/html/contact.html">CONTACT</a></li>
+    </ul>
+  </div>
+  <div class="nav-icons">
+    <div class="search">
+      <input type="text" placeholder="Search products...">
+      <i class="fa fa-search"></i>
+    </div>
+    <a href="/html/profile.html" class="fa fa-user" style="color: black;"></a>
+  </div>
+</nav>
+
 <h2>Sign in / Sign up</h2>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
 		<form id="signUpForm" novalidate>
 			<h1>Create Account</h1>
 			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+				<a href="/html/contact.html#socials" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="/html/contact.html#socials" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="/html/contact.html#socials" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your email for registration</span>
 			<input id="signUpName" type="text" placeholder="Name" autocomplete="name" required />
@@ -30,15 +56,15 @@
 		<form id="signInForm" novalidate>
 			<h1>Sign in</h1>
 			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+				<a href="/html/contact.html#socials" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="/html/contact.html#socials" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="/html/contact.html#socials" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your account</span>
 			<input id="signInEmail" type="email" placeholder="Email" autocomplete="email" required />
 			<input id="signInPassword" type="password" placeholder="Password" autocomplete="current-password" required />
 			<p class="form-message" id="signInMessage"></p>
-			<a href="#">Forgot your password?</a>
+			<a href="/html/forgot-password.html">Forgot your password?</a>
 			<button type="submit">Sign In</button>
             
 		</form>
@@ -58,6 +84,47 @@
 		</div>
 	</div>
 </div>
+
+<footer class="vt-footer">
+    <div class="vt-footer-top">
+      <div>
+        <img src="/image/Logo/LogoWebsite.png" alt="Cookit" class="vt-logo">
+        <div class="vt-email"><i class="far fa-envelope"></i> <a href="mailto:support@cookit.com">support@cookit.com</a></div>
+        <div class="vt-social">
+          <a href="/html/contact.html#socials" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+          <a href="/html/contact.html#socials" class="social-circle"><i class="fab fa-instagram"></i></a>
+          <a href="/html/contact.html#socials" class="social-circle"><i class="fab fa-pinterest"></i></a>
+          <a href="/html/contact.html#socials" class="social-circle"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="vt-footer-columns">
+        <div>
+          <h4>Products</h4>
+          <a href="/html/food.html">New Arrivals</a>
+          <a href="/html/food.html">Best Sellers</a>
+          <a href="/html/food.html">Sale</a>
+        </div>
+        <div>
+          <h4>About</h4>
+          <a href="/html/about.html">Our Story</a>
+          <a href="/html/careers.html">Careers</a>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <a href="/html/faqs.html">FAQs</a>
+          <a href="/html/shipping.html">Shipping</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="/html/terms.html">Terms</a>
+          <a href="/html/privacy.html">Privacy</a>
+        </div>
+      </div>
+    </div>
+    <div class="vt-footer-bottom">
+      <p>© 2025 Cookit. All rights reserved.</p>
+    </div>
+  </footer>
 
 <footer>
 
