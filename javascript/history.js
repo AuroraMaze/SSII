@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const views = {
 		favorites: document.getElementById('favoritesView'),
 		recent: document.getElementById('recentView'),
-		created: document.getElementById('createdView'),
 	};
 
 	const setMessage = (text, type = 'error') => {
