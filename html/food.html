@@ -76,15 +76,6 @@
           </div>
         </div>
 
-        <div class="food-filter-chips" aria-label="Quick filters">
-          <button class="filter-chip active" type="button">All Recipes</button>
-          <button class="filter-chip" type="button">Breakfast</button>
-          <button class="filter-chip" type="button">Lunch</button>
-          <button class="filter-chip" type="button">Dinner</button>
-          <button class="filter-chip" type="button">Desserts</button>
-          <button class="filter-chip" type="button">Quick Meals</button>
-        </div>
-
         <div class="food-layout">
           <aside class="food-sidebar" data-filter-panel>
             <div class="sidebar-header">
@@ -135,6 +126,15 @@
 
               <div class="results-summary">
                 <span data-result-count>Showing 6 of 6 matches</span>
+                <div class="max-results-selector" style="margin-top: 10px;">
+                  <label for="max-results" style="margin-right: 8px;">Max Results:</label>
+                  <select id="max-results" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ddd;">
+                    <option value="12">12</option>
+                    <option value="24">24</option>
+                    <option value="36">36</option>
+                    <option value="50">50</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -199,7 +199,7 @@
     <i class="fa-solid fa-arrow-up"></i>
   </a>
 
-  <script defer src="/javascript/food-filters.js"></script>
+  <script defer src="/javascript/food-filters.js?v=2"></script>
 
 
 

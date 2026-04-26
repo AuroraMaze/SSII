@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from fastapi import Depends, Header, HTTPException, Request, status
-from jose import JWTError
+from jose import ExpiredSignatureError, JWTError
 
 from .core.security import decode_token
 
@@ -20,6 +20,8 @@ async def get_current_user(
     token = authorization.split(" ", 1)[1].strip()
     try:
         payload = decode_token(token)
+    except ExpiredSignatureError as exc:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Access token expired") from exc
     except JWTError as exc:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid access token") from exc
 
@@ -44,6 +46,8 @@ async def get_optional_current_user(
     token = authorization.split(" ", 1)[1].strip()
     try:
         payload = decode_token(token)
+    except ExpiredSignatureError:
+        return None
     except JWTError:
         return None
 

@@ -12,7 +12,26 @@ router = APIRouter(prefix="/api/favorites", tags=["favorites"])
 
 @router.get("")
 async def list_favorites(current_user=Depends(get_current_user), storage=Depends(get_storage)):
-    return await storage.list_favorites(current_user["id"])
+    favorites = await storage.list_favorites(current_user["id"])
+    refreshed_favorites = []
+
+    for favorite in favorites:
+        recipe_id = favorite.get("recipe_id")
+        if not recipe_id:
+            refreshed_favorites.append(favorite)
+            continue
+
+        try:
+            latest_recipe = await get_recipe_by_id(recipe_id)
+        except EdamamServiceError:
+            latest_recipe = None
+
+        if latest_recipe:
+            refreshed_favorites.append({**favorite, "recipe": latest_recipe})
+        else:
+            refreshed_favorites.append(favorite)
+
+    return refreshed_favorites
 
 
 @router.post("")

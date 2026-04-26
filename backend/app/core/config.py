@@ -25,5 +25,11 @@ class Settings:
     edamam_base_url: str = os.getenv("EDAMAM_BASE_URL", "https://api.edamam.com")
     edamam_account_user: str = os.getenv("EDAMAM_ACCOUNT_USER", "cookit-web")
 
+    # Social auth configuration
+    google_client_id: str | None = os.getenv("GOOGLE_CLIENT_ID")
+    facebook_app_id: str | None = os.getenv("FACEBOOK_APP_ID")
+    facebook_app_secret: str | None = os.getenv("FACEBOOK_APP_SECRET")
+    facebook_graph_version: str = os.getenv("FACEBOOK_GRAPH_VERSION", "v24.0")
+
 
 settings = Settings()

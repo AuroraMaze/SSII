@@ -1,13 +1,15 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 
 from ..dependencies import get_optional_current_user, get_storage
 from ..schemas import RecommendationRequest, RecommendationResponse
 from ..services.edamam import (
     EdamamServiceError,
+    browse_diverse_recipes,
     get_recipe_by_id,
     list_recipes as list_edamam_recipes,
+    search_recipes_by_diet,
     search_recipes_by_ingredients,
 )
 from ..services.recommendation import normalize_terms, rank_recipes
@@ -51,6 +53,27 @@ async def recommend(payload: RecommendationRequest, storage=Depends(get_storage)
 async def list_recipes():
     try:
         return await list_edamam_recipes()
+    except EdamamServiceError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
+
+
+@router.get("/recipes/browse")
+async def browse_recipes(
+    category: str | None = Query(None, description="Filter by meal category"),
+    diet: str | None = Query(None, description="Filter by diet (vegan, vegetarian, gluten-free, etc.)"),
+    limit: int = Query(12, ge=1, le=50, description="Maximum results to return"),
+):
+    """Browse diverse recipes with optional filters."""
+    diet_labels = []
+    if diet:
+        diet_labels = [d.strip() for d in diet.split(",") if d.strip()]
+    
+    try:
+        if diet_labels:
+            recipes = await search_recipes_by_diet(diet_labels, max_results=limit)
+        else:
+            recipes = await browse_diverse_recipes(category=category, max_results=limit)
+        return recipes
     except EdamamServiceError as exc:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
 

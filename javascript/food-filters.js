@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('[data-recipe-grid]');
   let cards = [];
-  const filterChips = Array.from(document.querySelectorAll('.filter-chip'));
+  let allRecipes = [];
   const categoryButtons = Array.from(document.querySelectorAll('[data-category-group] .category-item'));
   const dietCheckboxes = Array.from(document.querySelectorAll('[data-diet-group] input[type="checkbox"]'));
   const timeButtons = Array.from(document.querySelectorAll('[data-time-group] .mini-pill'));
@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadMoreButton = document.querySelector('[data-load-more]');
   const resultCount = document.querySelector('[data-result-count]');
   const footerCount = document.querySelector('[data-footer-count]');
+  const maxResultsSelect = document.querySelector('#max-results');
 
   if (!grid) {
     return;
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     category: 'all',
     diets: new Set(),
     time: '',
-    extraVisible: false,
+    maxResults: 12,
   };
 
   const showEmptyState = (message) => {
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fat = nutrition.fat || 0;
 
     return `
-      <article class="food-card" data-recipe-id="${recipe.id}" data-category="${category}" data-diets="${diets}" data-time="${timeLabel}" data-tags="${tags}">
+      <article class="food-card" data-recipe-id="${recipe.id}" data-category="${category}" data-diets="${diets}" data-time="${timeLabel}" data-tags="${tags}" style="cursor: pointer;" data-detail-url="${detailUrl}">
         <div class="card-media">
           <span class="match-badge">Recipe</span>
           <button class="card-favorite" type="button" aria-label="Save ${recipe.name}"><i class="fa-regular fa-heart"></i></button>
@@ -98,9 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
               <span class="nutrition-label">fat</span>
             </div>
           </div>
-          <div class="detail-footer-row">
-            <a class="inline-link" href="${detailUrl}">View details</a>
-          </div>
         </div>
       </article>
     `;
@@ -108,7 +106,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const loadRecipes = async () => {
     try {
-      const response = await fetch('/api/recipes');
+      const selectedDiets = Array.from(state.diets).join(',');
+      const queryParams = new URLSearchParams();
+      if (state.category && state.category !== 'all') {
+        queryParams.set('category', state.category);
+      }
+      if (selectedDiets) {
+        queryParams.set('diet', selectedDiets);
+      }
+      queryParams.set('limit', state.maxResults.toString());
+
+      const endpoint = `/api/recipes/browse?${queryParams.toString()}`;
+      console.log('🔍 Loading recipes from:', endpoint);
+      
+      const response = await fetch(endpoint);
       if (!response.ok) {
         let message = 'Unable to load recipes right now.';
         try {
@@ -125,21 +136,29 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(message);
       }
       const recipes = await response.json();
+      console.log(`✅ Loaded ${recipes.length} recipes from diverse sources`);
       if (!Array.isArray(recipes) || recipes.length === 0) {
-        showEmptyState('No recipes are available from Edamam right now. Check the API credentials or upstream response.');
+        showEmptyState('No recipes are available from Edamam right now. Check the API credentials or try different filters.');
+        allRecipes = [];
         cards = [];
         updateResultText(0);
         return;
       }
-      grid.innerHTML = recipes.map(renderRecipeCard).join('');
-      cards = Array.from(grid.querySelectorAll('.food-card[data-recipe-id]'));
-      updateResultText(cards.length);
+      allRecipes = recipes;
+      renderRecipes();
     } catch (error) {
       console.error('Recipe loading failed:', error);
       showEmptyState(error.message || 'Unable to load recipes right now.');
+      allRecipes = [];
       cards = [];
       updateResultText(0);
     }
+  };
+
+  const renderRecipes = () => {
+    grid.innerHTML = allRecipes.map(renderRecipeCard).join('');
+    cards = Array.from(grid.querySelectorAll('.food-card[data-recipe-id]'));
+    applyFilters();
   };
 
   const updateResultText = (visibleCount) => {
@@ -157,17 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let visibleCount = 0;
 
     cards.forEach((card, index) => {
-      const isExtraCard = card.dataset.extraCard === 'true';
       const cardCategory = (card.dataset.category || 'all').toLowerCase();
       const cardDiets = normalizeList(card.dataset.diets);
       const cardTime = (card.dataset.time || '').toLowerCase();
 
       const categoryMatch = state.category === 'all' || cardCategory === state.category;
-      const dietMatch = state.diets.size === 0 || [...state.diets].every((diet) => cardDiets.includes(diet));
+      const dietMatch = state.diets.size === 0 || [...state.diets].some((diet) => cardDiets.includes(diet));
       const timeMatch = !state.time || cardTime === state.time;
-      const extraMatch = !isExtraCard || state.extraVisible;
 
-      const shouldShow = categoryMatch && dietMatch && timeMatch && extraMatch;
+      const shouldShow = categoryMatch && dietMatch && timeMatch;
       card.classList.toggle('is-hidden', !shouldShow);
 
       if (shouldShow) {
@@ -176,55 +193,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     updateResultText(visibleCount);
-
-    if (loadMoreButton) {
-      loadMoreButton.textContent = state.extraVisible ? 'Show Fewer Recommendations' : 'Load More Recommendations';
-    }
   };
-
-  filterChips.forEach((chip) => {
-    chip.addEventListener('click', () => {
-      const label = chip.textContent.trim().toLowerCase();
-
-      filterChips.forEach((item) => item.classList.remove('active'));
-      chip.classList.add('active');
-
-      const categoryMap = {
-        'all recipes': 'all',
-        breakfast: 'breakfast',
-        lunch: 'lunch',
-        dinner: 'dinner',
-        desserts: 'dessert',
-        'quick meals': 'quick',
-      };
-
-      state.category = categoryMap[label] || 'all';
-      const matchingCategoryButton = categoryButtons.find((button) => button.dataset.category === state.category) || categoryButtons[0];
-      setActiveButton(categoryButtons, matchingCategoryButton);
-      applyFilters();
-    });
-  });
 
   categoryButtons.forEach((button) => {
     button.addEventListener('click', () => {
       state.category = button.dataset.category || 'all';
       setActiveButton(categoryButtons, button);
-
-      const matchingChip = filterChips.find((chip) => {
-        const text = chip.textContent.trim().toLowerCase();
-        const chipMap = {
-          'all recipes': 'all',
-          breakfast: 'breakfast',
-          lunch: 'lunch',
-          dinner: 'dinner',
-          desserts: 'dessert',
-          'quick meals': 'quick',
-        };
-        return chipMap[text] === state.category;
-      }) || filterChips[0];
-
-      setActiveButton(filterChips, matchingChip);
-      applyFilters();
+      
+      // Reload recipes for new category
+      loadRecipes().then(() => applyFilters());
     });
   });
 
@@ -236,7 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         state.diets.delete(diet);
       }
-      applyFilters();
+      // Reload recipes with new diet filters
+      loadRecipes().then(() => applyFilters());
     });
   });
 
@@ -259,9 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
       state.category = 'all';
       state.diets = new Set();
       state.time = '';
-      state.extraVisible = true;
+      state.maxResults = 12;
 
-      setActiveButton(filterChips, filterChips[0]);
       setActiveButton(categoryButtons, categoryButtons[0]);
       timeButtons.forEach((button) => button.classList.remove('active'));
 
@@ -269,32 +246,53 @@ document.addEventListener('DOMContentLoaded', () => {
         checkbox.checked = false;
       });
 
-      applyFilters();
+      if (maxResultsSelect) {
+        maxResultsSelect.value = '12';
+      }
+
+      // Reload all recipes
+      loadRecipes().then(() => applyFilters());
     });
   }
 
   if (loadMoreButton) {
     loadMoreButton.addEventListener('click', () => {
-      state.extraVisible = !state.extraVisible;
-      applyFilters();
+      // Load more recipes with current filters
+      loadRecipes();
+    });
+  }
+
+  if (maxResultsSelect) {
+    maxResultsSelect.addEventListener('change', (e) => {
+      state.maxResults = parseInt(e.target.value, 10) || 12;
+      console.log(`📊 Max results changed to: ${state.maxResults}`);
+      loadRecipes();
     });
   }
 
   grid.addEventListener('click', (event) => {
-    const button = event.target.closest('.card-favorite');
-    if (!button) {
+    const favoriteButton = event.target.closest('.card-favorite');
+    if (favoriteButton) {
+      // Handle favorite button click
+      event.stopPropagation();
+      const saved = favoriteButton.classList.toggle('is-saved');
+      const icon = favoriteButton.querySelector('i');
+      if (icon) {
+        icon.className = saved ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+      }
       return;
     }
 
-    event.stopPropagation();
-    const saved = button.classList.toggle('is-saved');
-    const icon = button.querySelector('i');
-    if (icon) {
-      icon.className = saved ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+    // Handle card click for navigation
+    const card = event.target.closest('.food-card');
+    if (card) {
+      const detailUrl = card.dataset.detailUrl;
+      if (detailUrl) {
+        window.location.href = detailUrl;
+      }
     }
   });
 
-  loadRecipes().then(() => {
-    applyFilters();
-  });
+  // Initial load with diverse recipes
+  loadRecipes();
 });

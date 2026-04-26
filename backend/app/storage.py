@@ -32,6 +32,8 @@ class AppStorage:
         if self.backend == "mongo" and self.db is not None:
             await self.db.users.create_index("id", unique=True)
             await self.db.users.create_index("email", unique=True)
+            await self.db.users.create_index("social_accounts.google.id", unique=True, sparse=True)
+            await self.db.users.create_index("social_accounts.facebook.id", unique=True, sparse=True)
             await self.db.recipes.create_index("id", unique=True)
             await self.db.favorites.create_index([("user_id", 1), ("recipe_id", 1)], unique=True)
         else:
@@ -60,6 +62,18 @@ class AppStorage:
             return await self.db.users.find_one({"id": user_id}, {"_id": 0})
         return self.users.get(user_id)
 
+    async def find_user_by_provider(self, provider: str, provider_user_id: str) -> dict[str, Any] | None:
+        provider_path = f"social_accounts.{provider}.id"
+        if self.backend == "mongo" and self.db is not None:
+            return await self.db.users.find_one({provider_path: provider_user_id}, {"_id": 0})
+
+        for user in self.users.values():
+            social_accounts = user.get("social_accounts") or {}
+            provider_account = social_accounts.get(provider, {})
+            if provider_account.get("id") == provider_user_id:
+                return user
+        return None
+
     async def create_user(self, user_data: dict[str, Any]) -> dict[str, Any]:
         record = user_data.copy()
         record["id"] = record.get("id") or str(uuid4())
@@ -72,6 +86,22 @@ class AppStorage:
         self.users[record["id"]] = record
         self.users_by_email[record["email"]] = record["id"]
         return {key: value for key, value in record.items() if key != "password_hash"}
+
+    async def update_user(self, user_id: str, updates: dict[str, Any]) -> dict[str, Any] | None:
+        if self.backend == "mongo" and self.db is not None:
+            await self.db.users.update_one({"id": user_id}, {"$set": updates})
+            user = await self.db.users.find_one({"id": user_id}, {"_id": 0})
+            if not user:
+                return None
+            return {key: value for key, value in user.items() if key != "password_hash"}
+
+        user = self.users.get(user_id)
+        if not user:
+            return None
+        user.update(updates)
+        if "email" in updates and updates["email"]:
+            self.users_by_email[str(updates["email"]).lower()] = user_id
+        return {key: value for key, value in user.items() if key != "password_hash"}
 
     async def add_favorite(self, user_id: str, recipe: dict[str, Any]) -> dict[str, Any]:
         record = {

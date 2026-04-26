@@ -21,6 +21,24 @@ document.addEventListener('DOMContentLoaded', () => {
 		message.classList.toggle('success', type === 'success');
 	};
 
+	const clearSession = () => {
+		window.localStorage.removeItem('cookit_access_token');
+		window.localStorage.removeItem('cookit_current_user');
+	};
+
+	const readJson = async (response) => response.json().catch(() => null);
+
+	const getErrorMessage = (payload, fallback) => {
+		if (payload && typeof payload === 'object') {
+			return payload.detail || payload.message || fallback;
+		}
+		return fallback;
+	};
+
+	const asArray = (value) => (Array.isArray(value) ? value : []);
+	const isRecord = (value) => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+	const isAuthFailure = (response, payload) => response.status === 401 && ['Invalid access token', 'Access token expired', 'User not found'].includes(getErrorMessage(payload, ''));
+
 	const renderFavoriteCard = (item) => {
 		return `
 			<article class="recipe-card" data-recipe-id="${item.id}">
@@ -40,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	const renderHistoryCard = (entry, recipe) => {
-		const ingredients = entry.query?.ingredients || [];
+		const ingredients = Array.isArray(entry.query?.ingredients) ? entry.query.ingredients : [];
 		const filterText = [entry.query?.diet_goal, entry.query?.nutrition_goal, entry.query?.max_time_minutes ? `${entry.query.max_time_minutes} mins` : null].filter(Boolean).join(' • ');
 		return `
 			<article class="recipe-card" data-recipe-id="${recipe?.id || entry.id}">
@@ -95,13 +113,33 @@ document.addEventListener('DOMContentLoaded', () => {
 				fetch('/api/favorites/history', { headers: { Authorization: `Bearer ${token}` } }),
 			]);
 
-			const favorites = await favoritesResponse.json().catch(() => []);
-			const history = (await historyResponse.json().catch(() => [])).sort((left, right) => {
+			const favoritesPayload = await readJson(favoritesResponse);
+			if (isAuthFailure(favoritesResponse, favoritesPayload)) {
+				clearSession();
+				window.location.href = '/html/Login.html';
+				return;
+			}
+			if (!favoritesResponse.ok) {
+				throw new Error(getErrorMessage(favoritesPayload, 'Unable to load favorites'));
+			}
+
+			const historyPayload = await readJson(historyResponse);
+			if (isAuthFailure(historyResponse, historyPayload)) {
+				clearSession();
+				window.location.href = '/html/Login.html';
+				return;
+			}
+			if (!historyResponse.ok) {
+				throw new Error(getErrorMessage(historyPayload, 'Unable to load recommendation history'));
+			}
+
+			const favorites = asArray(favoritesPayload).filter((entry) => isRecord(entry) && isRecord(entry.recipe));
+			const history = asArray(historyPayload).filter(isRecord).sort((left, right) => {
 				const leftDate = new Date(left.created_at || 0).getTime();
 				const rightDate = new Date(right.created_at || 0).getTime();
 				return rightDate - leftDate;
 			});
-			const topRecipeIds = [...new Set(history.map((entry) => entry.result_ids?.[0]).filter(Boolean))];
+			const topRecipeIds = [...new Set(history.map((entry) => Array.isArray(entry.result_ids) ? entry.result_ids[0] : null).filter(Boolean))];
 			const recipeEntries = await Promise.all(
 				topRecipeIds.map(async (recipeId) => {
 					try {
@@ -153,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				historyGrid.innerHTML = history.length
 					? history
 						.map((entry) => {
-							const topRecipeId = entry.result_ids?.[0];
+							const topRecipeId = Array.isArray(entry.result_ids) ? entry.result_ids[0] : null;
 							const recipe = recipeMap.get(topRecipeId) || {
 								id: topRecipeId || entry.id,
 								name: 'Saved recommendation',

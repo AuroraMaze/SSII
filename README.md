@@ -33,6 +33,9 @@ docker compose up --build
 
 - `POST /api/auth/register`
 - `POST /api/auth/login`
+- `POST /api/auth/social/google`
+- `POST /api/auth/social/facebook`
+- `GET /api/auth/providers`
 - `POST /api/recommendations`
 - `POST /api/favorites`
 - `GET /api/favorites`
@@ -43,3 +46,27 @@ docker compose up --build
 - If `MONGODB_URI` is not set, the app runs in memory mode so you can still test the full flow.
 - Recipe search and recipe details are powered by Edamam. Their web recipe API provides nutrition and source links, while full cooking instructions remain on the original publisher page.
 - Password hashing uses `pbkdf2_sha256` to avoid the bcrypt backend issue in this environment.
+
+## Social Login Setup
+
+Cookit now supports Google and Facebook sign-in on the login page when the provider keys are configured.
+
+Set these values in `.env`:
+
+- `GOOGLE_CLIENT_ID`
+- `FACEBOOK_APP_ID`
+- `FACEBOOK_APP_SECRET`
+- `FACEBOOK_GRAPH_VERSION` optional, defaults to `v24.0`
+
+Google setup:
+
+- Create a Google OAuth web app client in Google Cloud.
+- Add your local and production origins to the authorized JavaScript origins list.
+- Copy the web client ID into `GOOGLE_CLIENT_ID`.
+
+Facebook setup:
+
+- Create a Meta app with Facebook Login enabled.
+- Add your site origin under the JavaScript SDK allowed domains settings.
+- Request the `email` permission for login.
+- Copy the app ID and app secret into `FACEBOOK_APP_ID` and `FACEBOOK_APP_SECRET`.
