@@ -253,6 +253,171 @@ html.dark-mode #scroll_top {
   box-shadow: 0 0 0 1px #334155, 0 16px 30px rgba(0, 0, 0, 0.35) !important;
 }
 
+/* Dark mode overrides for recommend.css and other pages */
+html.dark-mode .recommend-hero-copy .kicker {
+  background: rgba(46, 160, 67, 0.18) !important;
+  color: #8be28b !important;
+}
+
+html.dark-mode .recommend-hero-copy p,
+html.dark-mode .panel-note,
+html.dark-mode .results-header p,
+html.dark-mode .description,
+html.dark-mode .reason,
+html.dark-mode .meta-row,
+html.dark-mode .nutrition-item span,
+html.dark-mode .empty-state {
+  color: #aab8c8 !important;
+}
+
+html.dark-mode .step-card p,
+html.dark-mode .recommend-hero-card li,
+html.dark-mode .ingredient-chip,
+html.dark-mode .recommend-form label,
+html.dark-mode .details-btn,
+html.dark-mode .chip {
+  color: #aab8c8 !important;
+}
+
+html.dark-mode .result-body h3,
+html.dark-mode .nutrition-item strong,
+html.dark-mode .match-group-title {
+  color: #f8fafc !important;
+}
+
+html.dark-mode .step-card {
+  background: #162132 !important;
+  border-color: #253041 !important;
+}
+
+html.dark-mode .recommend-hero-card li,
+html.dark-mode .nutrition-item,
+html.dark-mode .match-group {
+  background: #162132 !important;
+  border-color: #253041 !important;
+}
+
+html.dark-mode .match-group.missing {
+  background: rgba(154, 52, 18, 0.1) !important;
+}
+
+html.dark-mode .match-group.missing .match-group-title {
+  color: #ff8a65 !important;
+}
+
+html.dark-mode .ingredient-chip {
+  background: #162132 !important;
+  border-color: #253041 !important;
+}
+
+html.dark-mode .ingredient-chip:hover {
+  background: #1f2937 !important;
+  border-color: #334155 !important;
+}
+
+html.dark-mode .details-btn {
+  background: #162132 !important;
+  border-color: #253041 !important;
+}
+
+html.dark-mode .details-btn:hover {
+  background: #1f2937 !important;
+  border-color: #334155 !important;
+}
+
+html.dark-mode .empty-state {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+html.dark-mode .food-hero-copy p,
+html.dark-mode .food-eyebrow,
+html.dark-mode .sidebar-label,
+html.dark-mode .results-subtitle,
+html.dark-mode .group-title {
+  color: #aab8c8 !important;
+}
+
+html.dark-mode .filter-chip {
+  background: #162132 !important;
+  color: #aab8c8 !important;
+  border-color: #253041 !important;
+}
+
+html.dark-mode .filter-chip:hover,
+html.dark-mode .filter-chip.active {
+  background: #2ea043 !important;
+  border-color: #2ea043 !important;
+  color: #f8fafc !important;
+}
+
+html.dark-mode .category-item {
+  color: #aab8c8 !important;
+}
+
+html.dark-mode .category-item:hover,
+html.dark-mode .category-item.active {
+  background: rgba(46, 160, 67, 0.12) !important;
+  color: #8be28b !important;
+}
+
+html.dark-mode .mini-pill {
+  background: #162132 !important;
+  color: #aab8c8 !important;
+  border-color: #253041 !important;
+}
+
+html.dark-mode .mini-pill.active {
+  background: rgba(46, 160, 67, 0.18) !important;
+  border-color: rgba(46, 160, 67, 0.32) !important;
+  color: #8be28b !important;
+}
+
+/* Dark mode fixes for home.html food cards */
+html.dark-mode .trend-info h4 {
+  color: #f8fafc !important;
+}
+
+html.dark-mode .trend-info .meta {
+  color: #aab8c8 !important;
+}
+
+html.dark-mode .badge.small {
+  background: rgba(46, 160, 67, 0.18) !important;
+  color: #8be28b !important;
+}
+
+/* Dark mode fixes for home.html featured recipe card */
+html.dark-mode .card-recipe {
+  background: #111827 !important;
+  border-color: #253041 !important;
+}
+
+html.dark-mode .card-footer {
+  background: #111827 !important;
+  border-color: #253041 !important;
+}
+
+html.dark-mode .card-footer h3 {
+  color: #f8fafc !important;
+}
+
+html.dark-mode .card-footer .tag {
+  color: #8be28b !important;
+}
+
+html.dark-mode .card-footer .meta {
+  color: #aab8c8 !important;
+}
+
+html.dark-mode .featured-detail-link {
+  color: #8be28b !important;
+}
+
+html.dark-mode .featured-detail-link:hover {
+  color: #a8e6a8 !important;
+}
+
 .theme-toggle {
   position: fixed;
   right: 24px;
